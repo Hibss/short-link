@@ -34,5 +34,10 @@ public class LinkController {
         return linkService.getCityList();
     }
 
+    @GetMapping("initShortLink")
+    public String initShortLink() throws Exception {
+        return linkService.initAllRestInterface();
+    }
+
 }
 

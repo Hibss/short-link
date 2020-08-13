@@ -2,7 +2,7 @@ package com.syz.eurekaserver.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class ShortUrlUtils {
+public class ShortUrl62Utils {
     private final static String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     /**
@@ -44,6 +44,6 @@ public class ShortUrlUtils {
 
     public static void main(String[] args) {
         String uri = "link/cityList";
-        System.out.println(ShortUrlUtils.base62Decode(uri));
+        System.out.println(ShortUrl62Utils.base62Decode(uri));
     }
 }

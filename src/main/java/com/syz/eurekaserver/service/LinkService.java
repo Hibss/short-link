@@ -20,4 +20,8 @@ public interface LinkService extends IService<Link> {
     String getCountryList() throws Exception;
 
     Long insert(Link link);
+
+    String initAllRestInterface() throws Exception;
+
+    Link queryByShort(String substring);
 }
