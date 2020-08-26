@@ -46,7 +46,10 @@ public class ShortLinkFilter implements Filter {
                 String fullUrl = link.getFullUrl();
                 log.info("resource :{} , request resource id : {}", fullUrl, linkId.toString());
                 log.info("process short link request-------------------");
-                response.sendRedirect(fullUrl);
+                //改变地址栏
+//                response.sendRedirect(fullUrl);
+                //不改变地址栏
+                request.getRequestDispatcher(fullUrl).forward(request,response);
             }
         }else{
             filterChain.doFilter(request, response);
