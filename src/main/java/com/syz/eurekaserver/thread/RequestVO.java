@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class RequestVO {
-    private Integer id;
+    private Long id;
 }

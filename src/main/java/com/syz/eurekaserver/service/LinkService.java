@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.syz.eurekaserver.thread.RequestVO;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -25,7 +27,11 @@ public interface LinkService extends IService<Link> {
 
     String initAllRestInterface() throws Exception;
 
+    Link getById(RequestVO vo);
+
+    Link getById(String id);
+
     Link queryByShort(String substring);
 
-    Link getById(RequestVO vo);
+    List<Link> getByIds(String[] ids);
 }

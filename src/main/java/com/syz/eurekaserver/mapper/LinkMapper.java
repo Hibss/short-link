@@ -19,5 +19,5 @@ import javax.annotation.Generated;
 public interface LinkMapper extends BaseMapper<Link> {
 
     @Select("select * from t_link where id = #{id}")
-    Link getById(RequestVO vo);
+    Link getById(Long id);
 }

@@ -25,10 +25,8 @@ import org.springframework.web.servlet.mvc.condition.RequestMethodsRequestCondit
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.swing.*;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -150,8 +148,25 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
     }
 
     @Override
+    public List<Link> getByIds(String[] ids) {
+        if(ids == null || ids.length == 0){
+            return Collections.EMPTY_LIST;
+        }
+        List<Long> idList =
+                Arrays.stream(ids).map(obj->Long.parseLong(obj)).collect(Collectors.toList());
+        QueryWrapper<Link> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().in(Link::getId,idList);
+        return linkMapper.selectList(queryWrapper);
+    }
+
+    @Override
     public Link getById(RequestVO vo) {
-        return linkMapper.getById(vo);
+        return linkMapper.getById(vo.getId());
+    }
+
+    @Override
+    public Link getById(String id) {
+        return linkMapper.getById(Long.parseLong(id));
     }
 
     private List<Link> getAll() {
