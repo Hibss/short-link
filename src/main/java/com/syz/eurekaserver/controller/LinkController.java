@@ -2,6 +2,9 @@ package com.syz.eurekaserver.controller;
 
 
 import com.syz.eurekaserver.service.LinkService;
+import com.syz.eurekaserver.thread.RequestVO;
+import com.syz.eurekaserver.thread.ThreadLocalCache;
+import com.syz.eurekaserver.utils.JacksonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +40,12 @@ public class LinkController {
     @GetMapping("initShortLink")
     public String initShortLink() throws Exception {
         return linkService.initAllRestInterface();
+    }
+
+    @GetMapping("info")
+    public String info() throws Exception {
+        RequestVO vo = ThreadLocalCache.baseSignatureRequestThreadLocal.get();
+        return JacksonUtil.obj2json(linkService.getById(vo));
     }
 
 }

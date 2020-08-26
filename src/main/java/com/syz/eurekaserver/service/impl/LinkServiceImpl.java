@@ -9,6 +9,7 @@ import com.syz.eurekaserver.mapper.CountryMapper;
 import com.syz.eurekaserver.mapper.LinkMapper;
 import com.syz.eurekaserver.service.LinkService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.syz.eurekaserver.thread.RequestVO;
 import com.syz.eurekaserver.utils.JacksonUtil;
 import com.syz.eurekaserver.utils.ShortUrl62Utils;
 import com.syz.eurekaserver.utils.ShortUrlMD5Util;
@@ -146,6 +147,11 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
         QueryWrapper<Link> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(Link::getShortUrl,shortUrl);
         return this.baseMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public Link getById(RequestVO vo) {
+        return linkMapper.getById(vo);
     }
 
     private List<Link> getAll() {

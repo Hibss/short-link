@@ -2,6 +2,8 @@ package com.syz.eurekaserver.service;
 
 import com.syz.eurekaserver.entity.Link;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.syz.eurekaserver.thread.RequestVO;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * <p>
@@ -24,4 +26,6 @@ public interface LinkService extends IService<Link> {
     String initAllRestInterface() throws Exception;
 
     Link queryByShort(String substring);
+
+    Link getById(RequestVO vo);
 }

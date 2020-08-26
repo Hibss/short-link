@@ -4,12 +4,15 @@ import com.syz.eurekaserver.controller.LinkController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 //主动初始化所有链接转换短链接
 @Component
 @Slf4j
+/*这个数字越大，执行越晚*/
+@Order(100)
 public class ShortLinkInitConfig implements CommandLineRunner {
 
     @Autowired
