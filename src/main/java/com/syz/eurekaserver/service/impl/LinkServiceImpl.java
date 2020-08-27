@@ -94,12 +94,14 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
     @Override
     public String initAllRestInterface() throws Exception {
         List<Link> linkList = this.getAll();
+        Set<String> fullUrlLink = new HashSet<>();
         if(!CollectionUtils.isEmpty(linkList)){
-            return JacksonUtil.obj2json(linkList);
+            fullUrlLink = linkList.stream().map(Link::getFullUrl).collect(Collectors.toSet());
         }
         RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
         // 获取url与类和方法的对应信息
         Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
+        Set<String> finalFullUrlLink = fullUrlLink;
         map.entrySet().stream()
                 .filter(entry->entry.getValue().getMethod().getDeclaringClass().getPackage().getName().contains(CONTROLLER_PACKAGE))
                 .forEach(entry->{
@@ -107,10 +109,11 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
                     RequestMappingInfo info = entry.getKey();
 //                    HandlerMethod method = entry.getValue();
                     PatternsRequestCondition p = info.getPatternsCondition();
-
                     for (String url : p.getPatterns()) {
-
                         map1.put("url", url);
+                    }
+                    if(finalFullUrlLink.contains(map1.get("url"))){
+                        return;
                     }
 //                    map1.put("className", method.getMethod().getDeclaringClass().getName()); // 类名
 //                    map1.put("package",method.getMethod().getDeclaringClass().getPackage().getName());
